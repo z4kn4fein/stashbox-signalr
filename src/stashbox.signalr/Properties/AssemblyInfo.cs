@@ -4,11 +4,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Stashbox.SignalR")]
+[assembly: AssemblyTitle("Stashbox.AspNet.SignalR")]
 [assembly: AssemblyDescription("ASP.NET SignalR integration for Stashbox")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Peter Csajtai")]
-[assembly: AssemblyProduct("Stashbox.SignalR")]
+[assembly: AssemblyProduct("Stashbox.AspNet.SignalR")]
 [assembly: AssemblyCopyright("Copyright © Peter Csajtai 2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
