@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.26403.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "stashbox.signalr", "stashbox.signalr\stashbox.signalr.csproj", "{62F098F9-0177-41C9-A22C-AC8AEEBC3FD3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "stashbox.signalr.tests", "..\stashbox.signalr.tests\stashbox.signalr.tests.csproj", "{280BA280-56A5-4B1A-9D94-930E7B4DB896}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "stashbox.signalr.tests", "stashbox.signalr.tests\stashbox.signalr.tests.csproj", "{280BA280-56A5-4B1A-9D94-930E7B4DB896}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
