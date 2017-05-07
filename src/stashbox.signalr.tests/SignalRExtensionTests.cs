@@ -4,6 +4,7 @@ using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Stashbox.AspNet.SignalR;
+using Stashbox.Infrastructure;
 
 namespace Stashbox.SignalR.Tests
 {
@@ -16,7 +17,7 @@ namespace Stashbox.SignalR.Tests
             var container = new StashboxContainer().AddSignalR();
 
             Assert.IsInstanceOfType(GlobalHost.DependencyResolver, typeof(StashboxDependencyResolver));
-            Assert.IsTrue(container.CanResolve<IDependencyResolver>());
+            Assert.IsTrue(container.CanResolve<Microsoft.AspNet.SignalR.IDependencyResolver>());
             Assert.IsTrue(container.CanResolve<IHubActivator>());
         }
 
@@ -57,7 +58,7 @@ namespace Stashbox.SignalR.Tests
         {
             var container = new StashboxContainer().AddSignalR();
 
-            Assert.IsNull(container.Resolve<IDependencyResolver>().GetService(typeof(ITest)));
+            Assert.IsNull(container.Resolve<Microsoft.AspNet.SignalR.IDependencyResolver>().GetService(typeof(ITest)));
         }
 
         [TestMethod]
@@ -65,7 +66,7 @@ namespace Stashbox.SignalR.Tests
         {
             var container = new StashboxContainer().AddSignalR();
 
-            Assert.IsNull(container.Resolve<IDependencyResolver>().GetServices(typeof(ITest)));
+            Assert.IsNull(container.Resolve<Microsoft.AspNet.SignalR.IDependencyResolver>().GetServices(typeof(ITest)));
         }
 
         [TestMethod]
@@ -73,9 +74,9 @@ namespace Stashbox.SignalR.Tests
         {
             var container = new StashboxContainer().AddSignalR();
             container.RegisterType<ITest, Test>();
-            container.Resolve<IDependencyResolver>().Register(typeof(ITest), () => new Test2());
+            container.Resolve<Microsoft.AspNet.SignalR.IDependencyResolver>().Register(typeof(ITest), () => new Test2());
 
-            Assert.IsInstanceOfType(container.Resolve<IDependencyResolver>().GetService(typeof(ITest)), typeof(Test));
+            Assert.IsInstanceOfType(container.Resolve<Microsoft.AspNet.SignalR.IDependencyResolver>().GetService(typeof(ITest)), typeof(Test));
         }
 
         [TestMethod]
@@ -83,9 +84,9 @@ namespace Stashbox.SignalR.Tests
         {
             var container = new StashboxContainer().AddSignalR();
             container.RegisterType<ITest, Test>();
-            container.Resolve<IDependencyResolver>().Register(typeof(ITest), () => new Test2());
+            container.Resolve<Microsoft.AspNet.SignalR.IDependencyResolver>().Register(typeof(ITest), () => new Test2());
 
-            var services = container.Resolve<IDependencyResolver>().GetServices(typeof(ITest));
+            var services = container.Resolve<Microsoft.AspNet.SignalR.IDependencyResolver>().GetServices(typeof(ITest));
 
             Assert.AreEqual(1, services.Count());
             Assert.IsInstanceOfType(services.First(), typeof(Test));
@@ -99,7 +100,7 @@ namespace Stashbox.SignalR.Tests
             {
                 container.RegisterType<ITest, Test>();
                 container.AddSignalR(typeof(TestHub).Assembly);
-                hub = (TestHub)container.Resolve<IDependencyResolver>().GetService(typeof(TestHub));
+                hub = (TestHub)container.Resolve<Microsoft.AspNet.SignalR.IDependencyResolver>().GetService(typeof(TestHub));
             }
 
             Assert.IsFalse(hub.Disposed);
