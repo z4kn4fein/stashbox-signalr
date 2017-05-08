@@ -18,6 +18,7 @@ public class MvcApplication : System.Web.HttpApplication
 ```
 > The example above will set the `DependencyResolver` of the `GlobalHost` to the `StashboxDependencyResolver` and also registers a custom `IHubActivator` based on Stashbox. It will also register any `IHub` and `PersistentConnection` implementations found in the given assemblies.
 
+## Customizations
 You can also ask Stashbox to register your hubs and connections without setting the dependency resolver and hub activator:
 ```c#
 public class MvcApplication : System.Web.HttpApplication
