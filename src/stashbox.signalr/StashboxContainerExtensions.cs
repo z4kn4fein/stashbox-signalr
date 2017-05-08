@@ -3,13 +3,14 @@ using System.Reflection;
 using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
 using Stashbox.AspNet.SignalR;
+using Stashbox.Utils;
 
 namespace Stashbox.Infrastructure
 {
     /// <summary>
     /// Holds the <see cref="IStashboxContainer"/> extension methods for SignalR.
     /// </summary>
-    public static class StashboxContainerExtensions
+    public static class StashboxContainerSignalRExtensions
     {
         /// <summary>
         /// Adds <see cref="StashboxContainer"/> as the default dependency resolver and the default <see cref="IHubActivator"/>, also registers the available <see cref="IHub"/> and <see cref="PersistentConnection"/> implementations.
@@ -17,8 +18,13 @@ namespace Stashbox.Infrastructure
         /// <param name="container">The container.</param>
         /// <param name="assemblies">The assemblies to scan.</param>
         /// <returns>The container.</returns>
+        /// <exception cref="ArgumentNullException">
+        /// If <paramref name="container"/> is <c>null</c>.
+        /// </exception>
         public static IStashboxContainer AddSignalR(this IStashboxContainer container, params Assembly[] assemblies)
         {
+            Shield.EnsureNotNull(container, nameof(container));
+
             container.RegisterInstance<Microsoft.AspNet.SignalR.IDependencyResolver>(new StashboxDependencyResolver(container));
             container.RegisterInstance<IHubActivator>(new StashboxHubActivator(container));
             GlobalHost.DependencyResolver = container.Resolve<Microsoft.AspNet.SignalR.IDependencyResolver>();
@@ -32,8 +38,13 @@ namespace Stashbox.Infrastructure
         /// <param name="container">The container.</param>
         /// <param name="types">The types.</param>
         /// <returns>The container.</returns>
+        /// <exception cref="ArgumentNullException">
+        /// If <paramref name="container"/> is <c>null</c>.
+        /// </exception>
         public static IStashboxContainer AddSignalRWithTypes(this IStashboxContainer container, params Type[] types)
         {
+            Shield.EnsureNotNull(container, nameof(container));
+
             container.RegisterInstance<Microsoft.AspNet.SignalR.IDependencyResolver>(new StashboxDependencyResolver(container));
             container.RegisterInstance<IHubActivator>(new StashboxHubActivator(container));
             GlobalHost.DependencyResolver = container.Resolve<Microsoft.AspNet.SignalR.IDependencyResolver>();
@@ -47,8 +58,13 @@ namespace Stashbox.Infrastructure
         /// <param name="container">The container.</param>
         /// <param name="assemblies">The assemblies.</param>
         /// <returns>The container.</returns>
+        /// <exception cref="ArgumentNullException">
+        /// If <paramref name="container"/> is <c>null</c>.
+        /// </exception>
         public static IStashboxContainer RegisterHubs(this IStashboxContainer container, params Assembly[] assemblies)
         {
+            Shield.EnsureNotNull(container, nameof(container));
+
             if (assemblies.Length > 0)
                 container.RegisterAssemblies(assemblies,
                     type => typeof(IHub).IsAssignableFrom(type),
@@ -63,8 +79,13 @@ namespace Stashbox.Infrastructure
         /// <param name="container">The container.</param>
         /// <param name="types">The types.</param>
         /// <returns>The container.</returns>
+        /// <exception cref="ArgumentNullException">
+        /// If <paramref name="container"/> is <c>null</c>.
+        /// </exception>
         public static IStashboxContainer RegisterHubs(this IStashboxContainer container, params Type[] types)
         {
+            Shield.EnsureNotNull(container, nameof(container));
+
             if (types.Length > 0)
                 container.RegisterTypes(types, type => typeof(IHub).IsAssignableFrom(type), context => context.WithoutDisposalTracking());
 
@@ -77,8 +98,13 @@ namespace Stashbox.Infrastructure
         /// <param name="container">The container.</param>
         /// <param name="assemblies">The assemblies.</param>
         /// <returns>The container.</returns>
+        /// <exception cref="ArgumentNullException">
+        /// If <paramref name="container"/> is <c>null</c>.
+        /// </exception>
         public static IStashboxContainer RegisterPersistentConnections(this IStashboxContainer container, params Assembly[] assemblies)
         {
+            Shield.EnsureNotNull(container, nameof(container));
+
             if (assemblies.Length > 0)
                 container.RegisterAssemblies(assemblies,
                     type => typeof(PersistentConnection).IsAssignableFrom(type),
@@ -93,8 +119,13 @@ namespace Stashbox.Infrastructure
         /// <param name="container">The container.</param>
         /// <param name="types">The types.</param>
         /// <returns>The container.</returns>
+        /// <exception cref="ArgumentNullException">
+        /// If <paramref name="container"/> is <c>null</c>.
+        /// </exception>
         public static IStashboxContainer RegisterPersistentConnections(this IStashboxContainer container, params Type[] types)
         {
+            Shield.EnsureNotNull(container, nameof(container));
+
             if (types.Length > 0)
                 container.RegisterTypes(types, type => typeof(PersistentConnection).IsAssignableFrom(type), context => context.WithoutDisposalTracking());
 
