@@ -30,7 +30,8 @@ namespace Stashbox.AspNet.SignalR
         public override IEnumerable<object> GetServices(Type serviceType)
         {
             var services = this.dependencyResolver.ResolveAll(serviceType);
-            return services.Any() ? services : base.GetServices(serviceType);
+            var baseServices = base.GetServices(serviceType);
+            return baseServices == null ? services : services.Concat(baseServices);
         }
 
         /// <inheritdoc />

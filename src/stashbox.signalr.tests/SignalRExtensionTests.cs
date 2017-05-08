@@ -66,7 +66,7 @@ namespace Stashbox.SignalR.Tests
         {
             var container = new StashboxContainer().AddSignalR();
 
-            Assert.IsNull(container.Resolve<Microsoft.AspNet.SignalR.IDependencyResolver>().GetServices(typeof(ITest)));
+            Assert.IsTrue(!container.Resolve<Microsoft.AspNet.SignalR.IDependencyResolver>().GetServices(typeof(ITest)).Any());
         }
 
         [TestMethod]
@@ -80,7 +80,7 @@ namespace Stashbox.SignalR.Tests
         }
 
         [TestMethod]
-        public void DependencyResolverTests_GetServices_PreferContainer()
+        public void DependencyResolverTests_GetServices_Concats_Container_And_DefaultResolver()
         {
             var container = new StashboxContainer().AddSignalR();
             container.RegisterType<ITest, Test>();
@@ -88,8 +88,9 @@ namespace Stashbox.SignalR.Tests
 
             var services = container.Resolve<Microsoft.AspNet.SignalR.IDependencyResolver>().GetServices(typeof(ITest));
 
-            Assert.AreEqual(1, services.Count());
+            Assert.AreEqual(2, services.Count());
             Assert.IsInstanceOfType(services.First(), typeof(Test));
+            Assert.IsInstanceOfType(services.Last(), typeof(Test2));
         }
 
         [TestMethod]
