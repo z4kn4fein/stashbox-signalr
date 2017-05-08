@@ -20,6 +20,6 @@ namespace Stashbox.AspNet.SignalR
         }
 
         /// <inheritdoc />
-        public IHub Create(HubDescriptor descriptor) => this.dependencyResolver.Resolve<IHub>(descriptor.HubType);
+        public IHub Create(HubDescriptor descriptor) => (IHub)this.dependencyResolver.Resolve(descriptor.HubType);
     }
 }
