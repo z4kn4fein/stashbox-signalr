@@ -1,8 +1,7 @@
-﻿using System;
+﻿using Microsoft.AspNet.SignalR;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.AspNet.SignalR;
-using Stashbox.Infrastructure;
 
 namespace Stashbox.AspNet.SignalR
 {
@@ -11,13 +10,13 @@ namespace Stashbox.AspNet.SignalR
     /// </summary>
     public class StashboxDependencyResolver : DefaultDependencyResolver
     {
-        private readonly Infrastructure.IDependencyResolver dependencyResolver;
+        private readonly IDependencyResolver dependencyResolver;
 
         /// <summary>
         /// Constructs a <see cref="StashboxDependencyResolver"/>.
         /// </summary>
         /// <param name="dependencyResolver">The container.</param>
-        public StashboxDependencyResolver(Infrastructure.IDependencyResolver dependencyResolver)
+        public StashboxDependencyResolver(IDependencyResolver dependencyResolver)
         {
             this.dependencyResolver = dependencyResolver;
         }
