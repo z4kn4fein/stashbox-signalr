@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNet.SignalR.Hubs;
-using Stashbox.Infrastructure;
 
 namespace Stashbox.AspNet.SignalR
 {
