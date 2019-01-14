@@ -72,7 +72,7 @@ namespace Stashbox.SignalR.Tests
         public void DependencyResolverTests_GetService_PreferContainer()
         {
             var container = new StashboxContainer().AddSignalR();
-            container.RegisterType<ITest, Test>();
+            container.Register<ITest, Test>();
             container.Resolve<Microsoft.AspNet.SignalR.IDependencyResolver>().Register(typeof(ITest), () => new Test2());
 
             Assert.IsInstanceOfType(container.Resolve<Microsoft.AspNet.SignalR.IDependencyResolver>().GetService(typeof(ITest)), typeof(Test));
@@ -82,7 +82,7 @@ namespace Stashbox.SignalR.Tests
         public void DependencyResolverTests_GetServices_Concats_Container_And_DefaultResolver()
         {
             var container = new StashboxContainer().AddSignalR();
-            container.RegisterType<ITest, Test>();
+            container.Register<ITest, Test>();
             container.Resolve<Microsoft.AspNet.SignalR.IDependencyResolver>().Register(typeof(ITest), () => new Test2());
 
             var services = container.Resolve<Microsoft.AspNet.SignalR.IDependencyResolver>().GetServices(typeof(ITest));
@@ -98,7 +98,7 @@ namespace Stashbox.SignalR.Tests
             TestHub hub;
             using (var container = new StashboxContainer())
             {
-                container.RegisterType<ITest, Test>();
+                container.Register<ITest, Test>();
                 container.AddSignalR(typeof(TestHub).Assembly);
                 hub = (TestHub)container.Resolve<Microsoft.AspNet.SignalR.IDependencyResolver>().GetService(typeof(TestHub));
             }
@@ -112,7 +112,7 @@ namespace Stashbox.SignalR.Tests
             TestHub hub;
             using (var container = new StashboxContainer())
             {
-                container.RegisterType<ITest, Test>();
+                container.Register<ITest, Test>();
                 container.AddSignalR(typeof(TestHub).Assembly);
                 hub = (TestHub)container.Resolve<IHubActivator>().Create(new HubDescriptor { HubType = typeof(TestHub) });
             }

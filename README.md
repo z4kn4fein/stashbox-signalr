@@ -37,8 +37,8 @@ public class MvcApplication : System.Web.HttpApplication
         container.RegisterPersistentConnections(typeof(MyConnection), typeof(MyConnection2));
         
         //or register them directly
-        container.RegisterType<MyHub>(context => context.WithoutDisposalTracking());
-        container.RegisterType<MyConnection>(context => context.WithoutDisposalTracking());
+        container.Register<MyHub>(context => context.WithoutDisposalTracking());
+        container.Register<MyConnection>(context => context.WithoutDisposalTracking());
     }
 }
 ```
