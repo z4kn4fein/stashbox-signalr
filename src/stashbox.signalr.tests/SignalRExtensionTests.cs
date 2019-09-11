@@ -25,15 +25,15 @@ namespace Stashbox.SignalR.Tests
         {
             var container = new StashboxContainer().AddSignalR(typeof(TestHub).Assembly);
 
-            var regs = container.ContainerContext.RegistrationRepository.GetAllRegistrations()
-                .Where(reg => typeof(IHub).IsAssignableFrom(reg.ImplementationType) || typeof(PersistentConnection).IsAssignableFrom(reg.ImplementationType));
+            var regs = container.GetRegistrationMappings()
+                .Where(reg => typeof(IHub).IsAssignableFrom(reg.Value.ImplementationType) || typeof(PersistentConnection).IsAssignableFrom(reg.Value.ImplementationType));
 
             Assert.IsTrue(container.CanResolve<TestHub>());
             Assert.IsTrue(container.CanResolve<Hub>());
             Assert.IsTrue(container.CanResolve<IHub>());
             Assert.IsTrue(container.CanResolve<TestConnection>());
             Assert.IsTrue(container.CanResolve<PersistentConnection>());
-            Assert.IsTrue(regs.All(reg => !reg.ShouldHandleDisposal));
+            Assert.IsTrue(regs.All(reg => !reg.Value.ShouldHandleDisposal));
         }
 
         [TestMethod]
@@ -41,15 +41,15 @@ namespace Stashbox.SignalR.Tests
         {
             var container = new StashboxContainer().AddSignalRWithTypes(typeof(TestHub), typeof(TestConnection));
 
-            var regs = container.ContainerContext.RegistrationRepository.GetAllRegistrations()
-                .Where(reg => typeof(IHub).IsAssignableFrom(reg.ImplementationType) || typeof(PersistentConnection).IsAssignableFrom(reg.ImplementationType));
+            var regs = container.GetRegistrationMappings()
+                .Where(reg => typeof(IHub).IsAssignableFrom(reg.Value.ImplementationType) || typeof(PersistentConnection).IsAssignableFrom(reg.Value.ImplementationType));
 
             Assert.IsTrue(container.CanResolve<TestHub>());
             Assert.IsTrue(container.CanResolve<Hub>());
             Assert.IsTrue(container.CanResolve<IHub>());
             Assert.IsTrue(container.CanResolve<TestConnection>());
             Assert.IsTrue(container.CanResolve<PersistentConnection>());
-            Assert.IsTrue(regs.All(reg => !reg.ShouldHandleDisposal));
+            Assert.IsTrue(regs.All(reg => !reg.Value.ShouldHandleDisposal));
         }
 
         [TestMethod]
