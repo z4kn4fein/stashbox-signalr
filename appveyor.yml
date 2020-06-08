@@ -17,7 +17,6 @@ assembly_info:
   assembly_informational_version: $(build_version)
 before_build:
 - nuget restore src\stashbox.signalr.sln
-- nuget update src\stashbox.signalr.sln -id Stashbox
 build:
   project: src\stashbox.signalr.sln
   publish_nuget: true
